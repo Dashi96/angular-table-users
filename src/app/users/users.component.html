@@ -1,0 +1,45 @@
+<div class="filter">
+  <span class="filter-group">
+    <label>Пол</label>
+    <select [(ngModel)]="option">
+      <option *ngFor='let gender of genders' [value]='gender'>{{gender}}</option>
+    </select>
+  </span>
+  <span class="filter-group">
+    <label>Департамент</label>
+    <select [(ngModel)]="option">
+      <option *ngFor='let department of departments' [value]='department'>{{department}}</option>
+    </select>
+  </span>
+  <span class="filter-group">
+    <label>Город</label>
+    <select [(ngModel)]="option">
+      <option *ngFor='let city of cities' [value]='city'>{{city}}</option>
+    </select>
+  </span>
+</div>
+
+<div *ngIf="option" class="clearFilter">
+  <button (click)="option=''">Очистить фильтр</button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th (click)="sort('name')">Имя&nbsp;<span class="icon">&#9660;</span></th>
+      <th (click)="sort('age')">Возраст&nbsp;<span class="icon">&#9660;</span></th>
+      <th (click)="sort('gender')">Пол&nbsp;<span class="icon">&#9660;</span></th>
+      <th (click)="sort('department')">Департамент&nbsp;<span class="icon">&#9660;</span></th>
+      <th (click)="sort('address.city')">Адрес&nbsp;<span class="icon">&#9660;</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users | orderBy: key: reverse | filter: option">
+      <td>{{user.name}}</td>
+      <td>{{user.age}}</td>
+      <td>{{user.gender}}</td>
+      <td>{{user.department}}</td>
+      <td>{{user.address.city}}, {{user.address.street}}</td>
+    </tr>
+  </tbody>
+</table>
